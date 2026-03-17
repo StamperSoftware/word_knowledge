@@ -1,0 +1,141 @@
+﻿@page "/word-knowledge"
+@using WordKnowledge.Core.Enums
+@using WordKnowledge.Core.Models
+@using WordKnowledge.Core.Interfaces
+@rendermode InteractiveServer
+
+
+<div>
+    <h3>Word Test</h3>
+    <div id="wk-header">
+        <div id="wk-header-text">
+            <p>Test your word knowledge</p>
+            @if (AnswersSubmitted) 
+            { 
+                <p>@CorrectAnswers / @Words.Count() correct for @(100 * CorrectAnswers/Words.Count())%</p>
+            }
+        </div>
+        <div id="wk-action-buttons">
+            <button @onclick='() => ShowWords(WordType.Easy)'>Easy</button>
+            <button @onclick='() => ShowWords(WordType.Medium)'>Medium</button>
+            <button @onclick='() => ShowWords(WordType.Hard)'>Hard</button>
+            @if (ShouldDisplayWords)
+            {
+                <button @onclick="SubmitAnswers">Submit</button>    
+                <button @onclick='Reset'>Reset</button>
+            }
+        </div>
+    </div>
+
+
+    @if (ShouldDisplayWords)
+    {
+      
+        <div id="wk-word-list">
+            @foreach(var (word, definitions) in Questions)
+            {
+                <fieldset>
+                    <legend>@word.Name</legend>
+                    @foreach (var definition in definitions)
+                    {
+                        <div>
+                            <input name="@word.Name @definition" @onchange="() => UpdateAnswer(word, definition)" id="@word.Name @definition" type="radio" value="@definition"
+                                checked="@(Answers.Any(a => a.Key == word) && Answers[word].Equals(definition))"
+                            />
+                            <label for="@word.Name @definition">@definition</label>
+                        </div>
+                    }
+                </fieldset>
+            }
+        </div>
+    }
+
+</div>
+
+@code {
+
+    public WordTest(IWordService service)
+    {
+        wordService = service;
+    }
+
+    private IWordService wordService { get; set; }
+
+    private bool ShouldDisplayWords = false;
+    private bool AnswersSubmitted = false;
+
+    private IEnumerable<Word> Words { get; set; } = [];
+    private Dictionary<Word, string> Answers { get; set; } = [];
+    private Dictionary<Word, IList<string>> Questions { get; set; } = [];
+    private Random random = new();
+
+    private int CorrectAnswers = 0;
+
+    private void ShowWords(WordType type)
+    {
+        ShouldDisplayWords = true;
+        Words = wordService.GetWords(type, "").OrderBy(w => random.Next());
+        Answers = [];
+        Questions = [];
+        foreach (var word in Words)
+        {
+            Questions.Add(word, GetQuestions(word));
+        }
+    }
+
+    private void Reset()
+    {
+        ShouldDisplayWords = false;
+        AnswersSubmitted = false;
+        CorrectAnswers = 0;
+        Words = [];
+        Answers = [];
+        Questions = [];
+    }
+
+    private IList<string> GetQuestions(Word word)
+    {
+
+        IList<Word> wordList = Words.Where(w => w.Name != word.Name).ToList();
+        IList<string> definitions = [];
+        
+        int correctIndex = random.Next(0, 4);
+
+        for (var i = 0; i < 4; i++)
+        {
+            if (i == correctIndex)
+            {
+                definitions.Add(word.Definition);
+                continue;
+            }
+
+            var nextWord = wordList[random.Next(0, wordList.Count())];
+            wordList.Remove(nextWord);
+            definitions.Add(nextWord.Definition);
+        }
+
+
+        return definitions;
+    }
+
+
+    private void UpdateAnswer(Word word, string definition)
+    {
+        Answers[word] = definition;
+    }
+
+    private void SubmitAnswers()
+    {
+        AnswersSubmitted = true;
+        var correctAnswers = 0;
+        foreach(var (word, answer) in Answers)
+        {
+            if (word.CheckDefinition(answer))
+            {
+                correctAnswers++;
+            }
+        }
+        CorrectAnswers = correctAnswers;
+    }
+
+}

@@ -1,0 +1,58 @@
+﻿@page "/word-list"
+@rendermode InteractiveServer
+@using WordKnowledge.Core.Enums
+@using WordKnowledge.Core.Interfaces
+@using WordKnowledge.Core.Models
+
+<div>
+    <h3>Word List</h3>
+    <div id="filter-list">
+        <select @bind="Type">
+            <option value="">All</option>
+            <option>Easy</option>
+            <option>Medium</option>
+            <option>Hard</option>
+        </select>
+
+        <input placeholder="Search..." type="text" name="search" @bind="Search" />
+    </div>
+        
+
+    <table>
+        <thead>
+            <tr>
+                <th>Word</th>
+                <th>Definition</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach(var word in GetWords())
+            {
+                <tr>
+                    <td>@word.Name</td>
+                    <td>@word.Definition</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
+@code {
+
+    private IWordService WordService { get; set; }
+    private WordType? Type { get; set; }
+    private string Search { get; set; } = "";
+
+    public WordList(IWordService wordService)
+    {
+        WordService = wordService;
+        GetWords();
+    }
+
+    private IEnumerable<Word> GetWords()
+    {
+        return WordService.GetWords(Type, Search)
+            .OrderBy(w => w.Name);
+    }
+
+}
