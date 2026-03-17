@@ -1,6 +1,6 @@
 using WordKnowledge.Components;
-using WordKnowledge.Core.Interfaces;
-using WordKnowledge.Infrastructure.Services;
+using Core.Interfaces;
+using Infrastructure.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 

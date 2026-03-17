@@ -1,3 +1,5 @@
 <Solution>
+  <Project Path="Core/Core.csproj" Id="5b259658-77f0-427f-a4ff-50a85adbbd26" />
+  <Project Path="Infrastructure/Infrastructure.csproj" Id="d5d43aae-6a34-4c65-bbd0-35b39a90bfdd" />
   <Project Path="WordKnowledge/WordKnowledge.csproj" />
 </Solution>

@@ -1,4 +1,4 @@
-﻿namespace WordKnowledge.Core.Enums
+﻿namespace Core.Enums
 {
     public enum WordType
     {

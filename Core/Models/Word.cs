@@ -1,7 +1,6 @@
-﻿using System.Reflection.Metadata.Ecma335;
-using WordKnowledge.Core.Enums;
+﻿using Core.Enums;
 
-namespace WordKnowledge.Core.Models
+namespace Core.Models
 {
     public class Word
     {

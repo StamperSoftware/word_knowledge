@@ -1,7 +1,7 @@
-﻿using WordKnowledge.Core.Enums;
-using WordKnowledge.Core.Models;
+﻿using Core.Enums;
+using Core.Models;
 
-namespace WordKnowledge.Core.Interfaces
+namespace Core.Interfaces
 {
     public interface IWordService
     {
