@@ -1,4 +1,5 @@
 ﻿using Core.Enums;
+using Microsoft.EntityFrameworkCore;
 
 namespace Core.Models
 {
@@ -10,8 +11,9 @@ namespace Core.Models
             Definition = definition;
             Type = type;
         }
-
+        public Guid Id { get; set; }
         public string Name { get; set; } = "";
+
         public string Definition { get; set; } = "";
         public WordType Type { get; set; }
 

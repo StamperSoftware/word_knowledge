@@ -1,0 +1,23 @@
+[
+  {"Name": "triumvirate","Definition": "a government of three officers or magistrates functioning jointly","Type": 2},
+  {"Name": "aberration","Definition": "a deviation from the norm","Type": 2},
+  {"Name": "benevolent","Definition": "kind-hearted","Type": 2},
+  {"Name": "cacophony","Definition": "harsh noise", "Type": 2},
+  {"Name": "debilitate","Definition": "to weaken","Type": 2},
+  {"Name": "ephemeral","Definition": "lasting a short time","Type": 2},
+  {"Name": "fastidious", "Definition": "very attentive to detail", "Type": 2},
+  {"Name": "achieve", "Definition": "to accomplish a goal", "Type": 1},
+  {"Name": "benefit", "Definition": "an advantage", "Type": 1},
+  {"Name": "challenge", "Definition": "a difficult task", "Type": 1},
+  {"Name": "effort", "Definition": "hard work", "Type": 1},
+  {"Name": "generous", "Definition": "willing to give", "Type": 1},
+  {"Name": "important", "Definition": "significant", "Type": 1},
+  {"Name": "valuable", "Definition": "worth a lot", "Type": 1},
+  {"Name": "enemy", "Definition": "a person who opposes", "Type": 0},
+  {"Name": "hot", "Definition": "high temperature", "Type": 0},
+  {"Name": "cold", "Definition": "low temperature", "Type": 0},
+  {"Name": "light", "Definition": "low weight", "Type": 0},
+  {"Name": "heavy", "Definition": "high weight", "Type": 0},
+  {"Name": "new", "Definition": "recently made", "Type": 0},
+  {"Name": "give", "Definition": "to hand over", "Type": 0}
+]
